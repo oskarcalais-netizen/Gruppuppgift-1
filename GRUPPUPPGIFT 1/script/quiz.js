@@ -2,7 +2,7 @@ const STARTVIEW = document.getElementById("STARTVIEW")
 const QUIZVIEW = document.getElementById("QUIZVIEW")
 const COMPLETEVIEW = document.getElementById("COMPLETEVIEW")
 const FEEDBACKVIEW = document.getElementById("FEEDBACKVIEW")
-//test
+
 const QUESTION_TEXT = document.getElementById("QUESTION_TEXT")
 const ANSWERS_CONTAINER = document.getElementById("ANSWERS_CONTAINER")
 
@@ -199,16 +199,16 @@ const renderQuestion = () => {
             const allAnswers = ANSWERS_CONTAINER.querySelectorAll("input[type='radio']")
             allAnswers.forEach(ans => ans.disabled = true) //hämtar alla radioknappar och stänger av dom efter ett val.
         
-            // const radioButtons = ANSWERS_CONTAINER.querySelectorAll(".answer-option") //gör en div för varje radioknapp och skapar en klass för dom.
-            // radioButtons.forEach(radioButton => {
-            //     const clickedOn = raddioButton.querySelectorAll("input")
+            const radioButtons = ANSWERS_CONTAINER.querySelectorAll(".answer-option") //gör en div för varje radioknapp och skapar en klass för dom.
+            radioButtons.forEach(radioButton => {
+                const input = radioButton.querySelector("input")
 
-            //     if (clickedOn.value !== currentQuestion.correctAnswer) {
-            //         radioButton.classList.add("answer-option-disabled")
-            //     } else {
-            //         radioButton.classList.add("answer-option")
-            //     }
-            // })
+                if (input.value !== currentQuestion.correctAnswer) { //adderar stilen disabled på alla svar som inte är rätt.
+                    radioButton.classList.add("answer-option-disabled")
+                } else (
+                    radioButton.classList.add("correct-answer")
+                )
+            })
 
             if (radio.value === currentQuestion.correctAnswer) { //kolla om det är rätt eller fel.
                 FEEDBACKVIEW.textContent = "Rätt svar!"
