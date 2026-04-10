@@ -2,7 +2,7 @@ const STARTVIEW = document.getElementById("STARTVIEW")
 const QUIZVIEW = document.getElementById("QUIZVIEW")
 const COMPLETEVIEW = document.getElementById("COMPLETEVIEW")
 const FEEDBACKVIEW = document.getElementById("FEEDBACKVIEW")
-
+//test
 const QUESTION_TEXT = document.getElementById("QUESTION_TEXT")
 const ANSWERS_CONTAINER = document.getElementById("ANSWERS_CONTAINER")
 
