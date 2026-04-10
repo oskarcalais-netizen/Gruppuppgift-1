@@ -258,4 +258,25 @@ footer p {
     
 }
 
+.correct-answer {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    padding: 6px;
+    margin-bottom: 4px;
+    height: 25;
+    border: solid 2px var(--dark-purple);
+    border-radius: 5px;
+    background: var(--olive-green);
+    font-family: Philosopher;
+    font-weight: bolder;
+    padding-top: 4px;
+    color: var(--dark-purple);
+    min-width: 200px;
+}
+.correct-answer:hover {
+    background: var(--olive-green);
+    color: var(--dark-purple);
+}
+
 
