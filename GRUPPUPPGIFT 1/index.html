@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/quiz.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>QUIZ</title>
+  </head>
+  <body>
+    <header>
+      <div class="header-box">
+        <h1>Fantasy Quiz</h1>
+      </div>
+      <div class="progress-bar">
+        <p>PROGRESS:&nbsp</p>
+        <card id="1" class="not-answered"></card>
+        <card id="2" class="not-answered"></card>
+        <card id="3" class="not-answered"></card>
+        <card id="4" class="not-answered"></card>
+        <card id="5" class="not-answered"></card>
+        <card id="6" class="not-answered"></card>
+        <card id="7" class="not-answered"></card>
+        <card id="8" class="not-answered"></card>
+        <card id="9" class="not-answered"></card>
+        <card id="10" class="not-answered"></card>
+        <card id="11" class="not-answered"></card>
+        <card id="12" class="not-answered"></card>
+      </div>
+    </header>
+    <main>
+      <section class="quiz-box" id="quizBox">
+        <div class="point-counter">
+          <display>
+            <p>Poäng: <span id="POINTS">0</span></p>
+            
+          </display>
+          <display>
+            <p id="QUESTION_NR"></p>
+          </display>
+        </div>
+        <div id="questions" class="question">
+          <div id="STARTVIEW">
+            <h1>Välkommen!</h1>
+            <button id="START_BTN">Starta Quiz</button>
+          </div>
+
+          <div id="QUIZVIEW" style="display: none">
+            <h2 id="QUESTION_TEXT">Fråga hamnar här</h2>
+            <div id="ANSWERS_CONTAINER"></div>
+            <p id="FEEDBACKVIEW"></p>
+          </div>
+
+          <div id="COMPLETEVIEW" style="display: none">
+            <h1>Quiz färdigt</h1>
+            <button id="RESTART_BTN">Spela igen</button>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="PREV_BTN">Previous</button>
+          <button id="NEXT_BTN">Next</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>skapat av Oskar Calais, Catherine Crépault Wibe, Yvonne Claassen</p>
+    </footer>
+    <script src="script/quiz.js"></script>
+  </body>
+</html>
