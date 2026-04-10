@@ -9,6 +9,7 @@
 
 p {
     font-family: Philosopher;
+    font-weight: bolder;
 }
 
 html {
@@ -57,6 +58,7 @@ main {
 }
 
 .quiz-box {
+    display: inline-block;
     margin-top: 10px;
     width: 600px;
     min-height: 400px; 
@@ -217,6 +219,14 @@ footer p {
     cursor: not-allowed;
 }
 
+#NEXT_BTN:disabled,
+#PREV_BTN:disabled,
+#START_BTN:disabled:hover {
+    color: var(--dark-purple);
+    opacity: 50%;
+    cursor: not-allowed;
+}
+
 /* Tar bort radioknapparna */
 .answer-option input[type="radio"] { 
     display: none;
@@ -236,7 +246,7 @@ footer p {
     font-weight: bolder;
     padding-top: 4px;
     color: var(--dark-purple);
-    min-width: 200px;
+    min-width: 300px;
     
 }
 
@@ -265,18 +275,39 @@ footer p {
     padding: 6px;
     margin-bottom: 4px;
     height: 25;
-    border: solid 2px var(--dark-purple);
+    border: solid 2px dimgray;
     border-radius: 5px;
     background: var(--olive-green);
     font-family: Philosopher;
     font-weight: bolder;
     padding-top: 4px;
     color: var(--dark-purple);
-    min-width: 200px;
+    min-width: 300px;
+    opacity: 50%;
+    cursor: not-allowed;
 }
+
 .correct-answer:hover {
     background: var(--olive-green);
     color: var(--dark-purple);
 }
 
+.incorrect-answer {
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    padding: 6px;
+    margin-bottom: 4px;
+    height: 25;
+    border: solid 2px dimgray;
+    border-radius: 5px;
+    background: darkred;
+    font-family: Philosopher;
+    font-weight: bolder;
+    padding-top: 4px;
+    color: var(--dark-purple);
+    min-width: 300px;
+    opacity: 50%;
+    cursor: not-allowed;
+}
 
