@@ -192,8 +192,12 @@ const renderQuestion = () => {
         answer.textContent = answerText
         answer.htmlFor = "answerID" + index //ger ett unikt ID till labels.
 
-        radio.addEventListener("change", () => { //det som händer när man klickar på ett svar.
+        div.addEventListener("click", () => { //det som händer när man klickar på ett svar.
 
+            if (radio.disabled) { 
+                return //avbryt funktionen om man redan klickat på rätt svar (så att man inte kan klicka flera ggr)
+            }
+            
             NEXT_BTN.disabled = false 
 
             const allAnswers = ANSWERS_CONTAINER.querySelectorAll("input[type='radio']")
