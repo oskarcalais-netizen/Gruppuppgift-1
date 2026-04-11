@@ -162,6 +162,8 @@ const shuffleAnswers = (x) => {
 const renderQuestion = () => {
     const currentQuestion = questions[currentQuestionIndex]
 
+    const isAnswered = currentQuestion.answered; //ser till att vi loggar när ett svar har svarats. 
+
     QUESTION_NR.textContent = `Fråga ${currentQuestionIndex + 1} av 12`
 
 
@@ -188,11 +190,31 @@ const renderQuestion = () => {
         radio.value = answerText
         radio.id = "answerID" + index //ger varje radioknapp ett unikt ID.
         radio.name = "quiz_answer" //alla radioknappar får samma namn.
+
+        if (isAnswered) { //efter att vi skapat radio buttons, se till att de inte funkar om vi redan har svarat!
+        radio.disabled = true
+        }
+
         const answer = document.createElement("label")
+
+        
         answer.textContent = answerText
         answer.htmlFor = "answerID" + index //ger ett unikt ID till labels.
 
+        if (isAnswered) { //när vi har våra frågar renderade, och användaren redan har svarat, så läggs CSS till för att visa vad som var rätt / fel.
+            if (answerText === currentQuestion.correctAnswer) {
+                div.classList.add("correct-answer")
+            } else {
+                div.classList.add("answer-option-disabled", "incorrect-answer")
+            }
+            NEXT_BTN.disabled = false //ser till att NEXT knappen fortfarande funkar
+        }
+
         div.addEventListener("click", () => { //det som händer när man klickar på ett svar.
+
+            if (currentQuestion.answered) { // ⭐ ADDED
+            return
+            }
 
             if (radio.disabled) { 
                 return //avbryt funktionen om man redan klickat på rätt svar (så att man inte kan klicka flera ggr)
@@ -200,19 +222,20 @@ const renderQuestion = () => {
             
             NEXT_BTN.disabled = false 
 
+
             const allAnswers = ANSWERS_CONTAINER.querySelectorAll("input[type='radio']")
             allAnswers.forEach(ans => ans.disabled = true) //hämtar alla radioknappar och stänger av dom efter ett val.
         
             const radioButtons = ANSWERS_CONTAINER.querySelectorAll(".answer-option") //gör en div för varje radioknapp och skapar en klass för dom.
             radioButtons.forEach(radioButton => {
-                const input = radioButton.querySelector("input")
-
+                const input = radioButton.querySelector("input") 
                 if (input.value !== currentQuestion.correctAnswer) { //adderar stilen disabled på alla svar som inte är rätt.
                     radioButton.classList.add("answer-option-disabled")
                     radioButton.classList.add("incorrect-answer")
-                } else (
+                } else {// adderar stilen 'correct answer' på det svar som är rätt. 
                     radioButton.classList.add("correct-answer")
-                )
+                } 
+     
             })
 
             if (radio.value === currentQuestion.correctAnswer) { //kolla om det är rätt eller fel.
