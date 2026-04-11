@@ -209,6 +209,7 @@ const renderQuestion = () => {
 
                 if (input.value !== currentQuestion.correctAnswer) { //adderar stilen disabled på alla svar som inte är rätt.
                     radioButton.classList.add("answer-option-disabled")
+                    radioButton.classList.add("incorrect-answer")
                 } else (
                     radioButton.classList.add("correct-answer")
                 )
