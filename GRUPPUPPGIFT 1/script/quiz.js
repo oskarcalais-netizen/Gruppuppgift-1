@@ -212,7 +212,7 @@ const renderQuestion = () => {
 
         div.addEventListener("click", () => { //det som händer när man klickar på ett svar.
 
-            if (currentQuestion.answered) { // ⭐ ADDED
+            if (currentQuestion.answered) {
             return
             }
 
