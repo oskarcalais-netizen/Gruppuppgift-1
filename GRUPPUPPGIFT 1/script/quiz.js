@@ -192,7 +192,7 @@ const renderQuestion = () => {
         radio.name = "quiz_answer" //alla radioknappar får samma namn.
 
         if (isAnswered) { //efter att vi skapat radio buttons, se till att de inte funkar om vi redan har svarat!
-        radio.disabled = true
+            radio.disabled = true
         }
 
         const answer = document.createElement("label")
@@ -211,14 +211,16 @@ const renderQuestion = () => {
         }
 
         div.addEventListener("click", () => { //det som händer när man klickar på ett svar.
-
+            
             if (currentQuestion.answered) {
-            return
+                return //avbryt funktionen om användaren redan har svarat på frågan - booelean is true.
             }
 
             if (radio.disabled) { 
                 return //avbryt funktionen om man redan klickat på rätt svar (så att man inte kan klicka flera ggr)
             }
+
+            //skapar variabel för att spara det som användaren har klickat på 
             
             NEXT_BTN.disabled = false 
 
@@ -232,9 +234,14 @@ const renderQuestion = () => {
                 if (input.value !== currentQuestion.correctAnswer) { //adderar stilen disabled på alla svar som inte är rätt.
                     radioButton.classList.add("answer-option-disabled")
                     radioButton.classList.add("incorrect-answer")
+                    
+                    
                 } else {// adderar stilen 'correct answer' på det svar som är rätt. 
                     radioButton.classList.add("correct-answer")
                 } 
+                if (input === radio && input.value !== currentQuestion.correctAnswer) { 
+                radioButton.classList.add("selected-incorrect")
+        }
      
             })
 
@@ -245,9 +252,10 @@ const renderQuestion = () => {
                 FEEDBACKVIEW.textContent = `Fel svar!
                 Rätt svar är: ${currentQuestion.correctAnswer}`
             }
+
+            //sätter answered inom vår array till true så det sparas att frågan redan har svarats på. 
             questions[currentQuestionIndex].answered = true;
             document.getElementById(String(currentQuestionIndex + 1)).classList.replace("not-answered", "answered");
-            console.log(questions[currentQuestionIndex].answered)
         })
 
         div.appendChild(radio) 
@@ -269,6 +277,8 @@ const renderApp = () => {
         STARTVIEW.style.display = "none"
         QUIZVIEW.style.display = "none"
         COMPLETEVIEW.style.display = "block"
+        PREV_BTN.classList.add("invisible")
+        NEXT_BTN.classList.add("invisible")
     } 
     //quizzet:
     else {
@@ -282,6 +292,8 @@ const renderApp = () => {
 //knappar:
 START_BTN.addEventListener("click", () => {
     currentQuestionIndex = 0
+    PREV_BTN.classList.remove("invisible")
+    NEXT_BTN.classList.remove("invisible")
     renderApp()
 })
 
