@@ -140,8 +140,6 @@ const questions = [
 let currentQuestionIndex = -1
 let progressIndex = String(currentQuestionIndex + 2)
 
-
-
 //! ⭐⭐ Nytt 
 //* behövs göras utanför andra funktioner så att ens namn inte försvinner
 let name; 
@@ -179,12 +177,9 @@ const highScores = (name, points) => {
 
 }
 
-
 //** Poängräknare **
-
 const POINTS_EL = document.getElementById("POINTS")
 let pointCounter = 0;
-
 
 const updatePoints = (selectedAnswer, currentQuestion) => {
     if (selectedAnswer === currentQuestion.correctAnswer) {
@@ -201,7 +196,6 @@ const shuffleAnswers = (x) => {
 
 //** Ritar ut frågorna i html **
 const renderQuestion = () => {
-    
     const currentQuestion = questions[currentQuestionIndex]
 
     const isAnswered = currentQuestion.answered; //ser till att vi loggar när ett svar har svarats.
@@ -217,7 +211,6 @@ const renderQuestion = () => {
 
     QUESTION_NR.textContent = `Fråga ${currentQuestionIndex + 1} av 12`
 
-
     //nollställer text och knappar inför den nya frågan:
     QUESTION_TEXT.textContent = currentQuestion.question
     ANSWERS_CONTAINER.innerHTML = "" 
@@ -226,7 +219,6 @@ const renderQuestion = () => {
 
     //disable previous-knappen på första frågan:
     PREV_BTN.disabled = (currentQuestionIndex === 0)
-
 
     //hämtar de blandade svaren:
     const answers = shuffleAnswers(currentQuestion)
@@ -247,7 +239,6 @@ const renderQuestion = () => {
         }
 
         const answer = document.createElement("label")
-
         
         answer.textContent = answerText
         answer.htmlFor = "answerID" + index //ger ett unikt ID till labels.
@@ -278,7 +269,6 @@ const renderQuestion = () => {
             
             NEXT_BTN.disabled = false 
 
-
             const allAnswers = ANSWERS_CONTAINER.querySelectorAll("input[type='radio']")
             allAnswers.forEach(ans => ans.disabled = true) //hämtar alla radioknappar och stänger av dom efter ett val.
         
@@ -288,8 +278,7 @@ const renderQuestion = () => {
                 if (input.value !== currentQuestion.correctAnswer) { //adderar stilen disabled på alla svar som inte är rätt.
                     radioButton.classList.add("answer-option-disabled")
                     radioButton.classList.add("incorrect-answer")
-                    
-                    
+                      
                 } else {// adderar stilen 'correct answer' på det svar som är rätt. 
                     radioButton.classList.add("correct-answer")
                 } 
@@ -301,9 +290,7 @@ const renderQuestion = () => {
 
             if (radio.value === currentQuestion.correctAnswer) { //kolla om det är rätt eller fel.
                 FEEDBACKVIEW.textContent = "Rätt svar!"
-                updatePoints(radio.value, currentQuestion);
-                
-
+                updatePoints(radio.value, currentQuestion); 
             } else {
                 FEEDBACKVIEW.textContent = `Fel svar!
                 Rätt svar är: ${currentQuestion.correctAnswer}`
@@ -312,7 +299,6 @@ const renderQuestion = () => {
             //sätter answered inom vår array till true så det sparas att frågan redan har svarats på. 
             questions[currentQuestionIndex].answered = true;
             document.getElementById(String(currentQuestionIndex + 1)).classList.replace("not-answered", "answered");
-            console.log(questions[currentQuestionIndex].answered)
         })
 
         div.appendChild(radio) 
@@ -320,7 +306,6 @@ const renderQuestion = () => {
         ANSWERS_CONTAINER.appendChild(div)
     })
 }
-
 
 const renderApp = () => {
     //startskärmen:
