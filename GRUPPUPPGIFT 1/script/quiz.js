@@ -140,10 +140,51 @@ const questions = [
 let currentQuestionIndex = -1
 let progressIndex = String(currentQuestionIndex + 2)
 
+
+
+//! ⭐⭐ Nytt 
+//* behövs göras utanför andra funktioner så att ens namn inte försvinner
+let name; 
+//* highscore
+const scoresList = document.getElementById("SCORES");
+const highScores = (name, points) => {
+    let userInfo = {
+        name: name,
+        highScore: points
+    };
+    // ta ut data ur localStorage, lägg till det nya resultatet, och spara tillbaka det i localStorage:
+
+    let existingScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    existingScores.push(userInfo);
+
+    localStorage.setItem("highScores", JSON.stringify(existingScores));
+
+    // hämta alla high scores från localStorage och sortera dom i fallande ordning:
+
+    let allScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    allScores.sort((a, b) => b.highScore - a.highScore);
+
+    // visa high scores i HTML:
+
+    scoresList.innerHTML = ""; // nollställ listan innan vi lägger till alla scores igen.
+
+    allScores.forEach(score => {
+        const li = document.createElement("li");
+        li.textContent = `${score.name}: ${score.highScore} poäng`;
+        scoresList.appendChild(li);
+    });
+
+
+}
+
+
 //** Poängräknare **
 
 const POINTS_EL = document.getElementById("POINTS")
 let pointCounter = 0;
+
 
 const updatePoints = (selectedAnswer, currentQuestion) => {
     if (selectedAnswer === currentQuestion.correctAnswer) {
@@ -160,9 +201,19 @@ const shuffleAnswers = (x) => {
 
 //** Ritar ut frågorna i html **
 const renderQuestion = () => {
+    
     const currentQuestion = questions[currentQuestionIndex]
 
-    const isAnswered = currentQuestion.answered; //ser till att vi loggar när ett svar har svarats. 
+    const isAnswered = currentQuestion.answered; //ser till att vi loggar när ett svar har svarats.
+    //! ⭐⭐ Nytt
+    if (currentQuestionIndex === questions[0].id - 1) { //om det är första frågan, fråga efter namn
+        name = prompt("Välkommen till quizet! Vad heter du? < ");
+            if (name === null || name.length === 0) {
+            name = "Anonym"; //om användaren inte skriver in något namn, spara "Anonym" som namn i localStorage.
+            //* ⭐ notera att sparandet av själv namnet händer senare i en separat funktion för 
+            //* att det är först när quizet är klart som vi vet att vi vill spara namnet och poängen som behövs sparas i localStorage :D
+        }
+    }
 
     QUESTION_NR.textContent = `Fråga ${currentQuestionIndex + 1} av 12`
 
@@ -221,6 +272,9 @@ const renderQuestion = () => {
             }
 
             //skapar variabel för att spara det som användaren har klickat på 
+            // const chosenAnswer = allAnswers[answerID]
+
+            // chosenAnswer.checked = true;
             
             NEXT_BTN.disabled = false 
 
@@ -248,6 +302,8 @@ const renderQuestion = () => {
             if (radio.value === currentQuestion.correctAnswer) { //kolla om det är rätt eller fel.
                 FEEDBACKVIEW.textContent = "Rätt svar!"
                 updatePoints(radio.value, currentQuestion);
+                
+
             } else {
                 FEEDBACKVIEW.textContent = `Fel svar!
                 Rätt svar är: ${currentQuestion.correctAnswer}`
@@ -256,6 +312,7 @@ const renderQuestion = () => {
             //sätter answered inom vår array till true så det sparas att frågan redan har svarats på. 
             questions[currentQuestionIndex].answered = true;
             document.getElementById(String(currentQuestionIndex + 1)).classList.replace("not-answered", "answered");
+            console.log(questions[currentQuestionIndex].answered)
         })
 
         div.appendChild(radio) 
@@ -268,6 +325,7 @@ const renderQuestion = () => {
 const renderApp = () => {
     //startskärmen:
     if (currentQuestionIndex === -1) {
+        
         STARTVIEW.style.display = "block"
         QUIZVIEW.style.display = "none"
         COMPLETEVIEW.style.display = "none"
@@ -277,8 +335,12 @@ const renderApp = () => {
         STARTVIEW.style.display = "none"
         QUIZVIEW.style.display = "none"
         COMPLETEVIEW.style.display = "block"
-        PREV_BTN.classList.add("invisible")
-        NEXT_BTN.classList.add("invisible")
+        //! ⭐ Nytt
+        let points = pointCounter;
+        //kalla på funktionen 
+        highScores(name, points);
+
+        
     } 
     //quizzet:
     else {
@@ -292,8 +354,6 @@ const renderApp = () => {
 //knappar:
 START_BTN.addEventListener("click", () => {
     currentQuestionIndex = 0
-    PREV_BTN.classList.remove("invisible")
-    NEXT_BTN.classList.remove("invisible")
     renderApp()
 })
 
@@ -309,6 +369,7 @@ RESTART_BTN.addEventListener("click", () => {
     let a = document.getElementsByClassName( "answered" );
     [...a].forEach( x => x.className = "not-answered" );
     [...a].forEach( x => x.classList.remove("answered") );
+    questions.forEach(question => question.answered = false); //nollställer alla frågor så att de inte är markerade som answered längre.
     pointCounter = 0;
     POINTS_EL.textContent = pointCounter;
     QUESTION_NR.textContent = `Fråga 0 av 12`
