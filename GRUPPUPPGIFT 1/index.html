@@ -16,7 +16,7 @@
         <h1>Fantasy Quiz</h1>
       </div>
       <div class="progress-bar">
-        <p>Förlopp:&nbsp</p>
+        <p>PROGRESS:&nbsp</p>
         <card id="1" class="not-answered"></card>
         <card id="2" class="not-answered"></card>
         <card id="3" class="not-answered"></card>
@@ -36,6 +36,7 @@
         <div class="point-counter">
           <display>
             <p>Poäng: <span id="POINTS">0</span></p>
+            
           </display>
           <display>
             <p id="QUESTION_NR"></p>
@@ -55,13 +56,14 @@
 
           <div id="COMPLETEVIEW" style="display: none">
             <h1>Quiz färdigt</h1>
+            <div id="SCORES">-</div>
             <button id="RESTART_BTN">Spela igen</button>
           </div>
         </div>
 
         <div class="buttons">
-          <button id="PREV_BTN" class="invisible">Föregående</button>
-          <button id="NEXT_BTN" class="invisible">Nästa</button>
+          <button id="PREV_BTN">Föregående</button>
+          <button id="NEXT_BTN">Nästa</button>
         </div>
       </section>
     </main>
